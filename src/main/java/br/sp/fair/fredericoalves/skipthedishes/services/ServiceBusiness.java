@@ -21,7 +21,7 @@ import br.sp.fair.fredericoalves.skipthedishes.model.Model;
  * @param <T>
  * @param <R>
  */
-public abstract class ServiceBusiness<S extends HazelcastService<T>, T extends Model, R extends CrudRepository<T, Long>> {
+public class ServiceBusiness<S extends HazelcastService<T>, T extends Model, R extends CrudRepository<T, Long>> {
 
     private static final Logger logger = LoggerFactory.getLogger(ServiceBusiness.class);
 

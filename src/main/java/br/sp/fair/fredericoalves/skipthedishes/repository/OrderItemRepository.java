@@ -1,6 +1,6 @@
 package br.sp.fair.fredericoalves.skipthedishes.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,6 @@ import br.sp.fair.fredericoalves.skipthedishes.model.OrderItem;
  */
 @Repository
 @Component
-public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
+public interface OrderItemRepository extends CrudRepository<OrderItem, Long> {
 	
 }

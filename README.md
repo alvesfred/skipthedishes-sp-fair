@@ -26,3 +26,10 @@ Spring Test,
 Spring Scheduler, 
 Lombok, 
 JUnit
+
+
+TODO LIST...timeout event!!
+
+- Token Auth
+- Tests
+- SQL over Repository for Cousine
