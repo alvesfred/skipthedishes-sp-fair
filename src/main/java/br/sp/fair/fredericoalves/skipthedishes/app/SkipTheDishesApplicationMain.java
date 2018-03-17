@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * SkipTheDishes Application Main
@@ -23,8 +24,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = "br.sp.fair.fredericoalves.skipthedishes.model")
 @Import({SpringConfig.class,HazelcastConfig.class})
 @EnableCaching
+@EnableScheduling
 public class SkipTheDishesApplicationMain {
 
+	/**
+	 * Main App
+	 *
+	 * @param args
+	 */
     public static void main(String[] args) {
         SpringApplication.run(SkipTheDishesApplicationMain.class, args);
     }

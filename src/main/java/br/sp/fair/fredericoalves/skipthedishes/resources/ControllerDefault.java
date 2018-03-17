@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import br.sp.fair.fredericoalves.skipthedishes.model.Model;
 import br.sp.fair.fredericoalves.skipthedishes.services.HazelcastService;
-import br.sp.fair.fredericoalves.skipthedishes.services.ServiceDefault;
+import br.sp.fair.fredericoalves.skipthedishes.services.ServiceBusiness;
 import lombok.Getter;
 
 /**
@@ -25,7 +25,7 @@ import lombok.Getter;
  * @param <T>
  * @param <S>
  */
-public abstract class ControllerDefault<T extends Model, S extends ServiceDefault<HazelcastService<T>, T, ?>> {
+public abstract class ControllerDefault<T extends Model, S extends ServiceBusiness<HazelcastService<T>, T, ?>> {
 
 	@Autowired
 	@Getter

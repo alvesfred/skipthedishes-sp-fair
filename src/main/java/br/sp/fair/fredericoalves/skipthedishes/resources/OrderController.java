@@ -17,7 +17,7 @@ import br.sp.fair.fredericoalves.skipthedishes.services.OrderService;
 public class OrderController {//extends ControllerDefault<Order, OrderService> {
 
 	@Autowired
-	private OrderService service;
+	protected OrderService service;
 
 	
 }

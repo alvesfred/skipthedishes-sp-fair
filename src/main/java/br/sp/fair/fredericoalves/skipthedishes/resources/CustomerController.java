@@ -24,7 +24,9 @@ import br.sp.fair.fredericoalves.skipthedishes.services.CustomerService;
  */
 @RestController
 @RequestMapping("/api")
-public class CustomerController {//extends ControllerDefault<Customer, CustomerService> {
+// FIXME
+//public class CustomerController extends ControllerDefault<Customer, CustomerService> {
+public class CustomerController {
 
 	@Autowired
 	private CustomerService service;

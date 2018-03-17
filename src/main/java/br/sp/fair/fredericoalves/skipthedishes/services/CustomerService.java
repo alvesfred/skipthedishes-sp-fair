@@ -12,6 +12,7 @@ import br.sp.fair.fredericoalves.skipthedishes.repository.CustomerRepository;
  *
  */
 @Service
-public class CustomerService extends ServiceDefault<HazelcastCustomerService, Customer, CustomerRepository> {
+public class CustomerService extends ServiceBusiness<HazelcastCustomerService, Customer, CustomerRepository> {
 
+	// TODO apply hazelcast services here...
 }

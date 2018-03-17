@@ -6,6 +6,7 @@ package br.sp.fair.fredericoalves.skipthedishes.auth;
  * @author frederico.alves
  *
  */
+// TODO timeout
 public class AuthJSonToken {
 
 }

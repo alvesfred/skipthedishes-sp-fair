@@ -12,6 +12,6 @@ import br.sp.fair.fredericoalves.skipthedishes.repository.OrderItemRepository;
  *
  */
 @Service
-public class OrderItemService extends ServiceDefault<HazelcastOrderItemService, OrderItem, OrderItemRepository> {
+public class OrderItemService extends ServiceBusiness<HazelcastOrderItemService, OrderItem, OrderItemRepository> {
 
 }
