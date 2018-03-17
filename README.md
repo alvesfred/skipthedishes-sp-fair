@@ -12,17 +12,17 @@ https://github.com/alvesfred/skipthedishes-sp-fair
 
 - Patterns used:
 
-Repository
-Service
-Resource (Rest WebServices)
+Repository, 
+Service, 
+Resource (Rest WebServices), 
 In memory cache (Hazelcast)
 
 - Frameworks/APIs
 
-Hazelcast api
-Spring Boot
-Spring Rest
-Spring Test
-Spring Scheduler
-Lombok
+Hazelcast api, 
+Spring Boot, 
+Spring Rest, 
+Spring Test, 
+Spring Scheduler, 
+Lombok, 
 JUnit
