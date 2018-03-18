@@ -8,14 +8,14 @@ import com.hazelcast.config.MapConfig;
  * @author Frederico Cerqueira Alves
  * @see fredericocerqueiraalves@gmail.com
  */
-public class ContactMapConfig extends MapConfig {
+public class LocalhostMapConfig extends MapConfig {
 
     private int timeToLiveSeconds = DEFAULT_TTL_SECONDS;
 
-    public ContactMapConfig() {
+    public LocalhostMapConfig() {
     }
 
-    public ContactMapConfig(ContactMapConfig config) {
+    public LocalhostMapConfig(LocalhostMapConfig config) {
         this.timeToLiveSeconds = config.getTimeToLiveSeconds();
     }
 
@@ -30,7 +30,7 @@ public class ContactMapConfig extends MapConfig {
      * @param timeToLiveSeconds
      * @return
      */
-    public ContactMapConfig setTimeToLiveSeconds(int timeToLiveSeconds) {
+    public LocalhostMapConfig setTimeToLiveSeconds(int timeToLiveSeconds) {
         this.timeToLiveSeconds = timeToLiveSeconds;
         return this;
     }

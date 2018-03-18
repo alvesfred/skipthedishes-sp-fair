@@ -8,14 +8,14 @@ import com.hazelcast.config.ListConfig;
  * @author frederico.alves
  *
  */
-public class LocalListConfig extends ListConfig {
+public class LocalhostListConfig extends ListConfig {
 
     private int timeToLiveSeconds = 0;
 
-    public LocalListConfig() {
+    public LocalhostListConfig() {
     }
 
-    public LocalListConfig(LocalListConfig config) {
+    public LocalhostListConfig(LocalhostListConfig config) {
         this.timeToLiveSeconds = config.getTimeToLiveSeconds();
     }
 
@@ -23,7 +23,7 @@ public class LocalListConfig extends ListConfig {
         return timeToLiveSeconds;
     }
 
-    public LocalListConfig setTimeToLiveSeconds(int timeToLiveSeconds) {
+    public LocalhostListConfig setTimeToLiveSeconds(int timeToLiveSeconds) {
         this.timeToLiveSeconds = timeToLiveSeconds;
         return this;
     }
