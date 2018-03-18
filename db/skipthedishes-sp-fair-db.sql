@@ -17,11 +17,11 @@ DROP TABLE IF EXISTS `customer`;
 
 CREATE TABLE `customer` (
   `id` int(64) NOT NULL AUTO_INCREMENT,
-  `email` varchar(100) DEFAULT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `address` varchar(100) DEFAULT NULL,
-  `creation`  DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `password` varchar(100) DEFAULT NULL,
+  `email` varchar(100)    not NULL,
+  `name` varchar(100)     not NULL,
+  `address` varchar(100)  not NULL,
+  `creation`  DATETIME    DEFAULT CURRENT_TIMESTAMP,
+  `password` varchar(100) not NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
@@ -33,11 +33,12 @@ DROP TABLE IF EXISTS `store`;
 
 create table store (
     `id` int(64) NOT NULL AUTO_INCREMENT,
-    `address` varchar(200),
-    `name` varchar(100),
+    `address` varchar(200) not null,
+    `name` varchar(100)    not null,
     primary key (id)
-)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
+/*Data for the table `store` */
 insert  into `store` (`id`, `name`, `address`) values (1, 'Store 01', 'Address 01 Test');
 
 /* Table structure for table `product` */
@@ -45,12 +46,14 @@ DROP TABLE IF EXISTS `product`;
 
 CREATE TABLE `product` (
   `id` int(64) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
+  `name` varchar(100) not NULL,
   `description` varchar(200) DEFAULT NULL,
-  `price` decimal(19,2) DEFAULT null,
-  `store_id` int(64)  DEFAULT null,
+  `price` decimal(19,2) not null,
+  `store_id` int(64)    not null,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+
+ALTER TABLE product add FOREIGN KEY (store_id) REFERENCES store (id);
 
 /*Data for the table `product` */
 insert  into `product` (`id`, `name`, `description`, `price`, `store_id`) values (1, 'Product 01', 'Product 01 Test', 12.60, 1);
@@ -61,30 +64,37 @@ DROP TABLE IF EXISTS `orders`;
 create table orders (
      `id` int(64) NOT NULL AUTO_INCREMENT,
     `lastUpdate` datetime,
-    `creation`  DATETIME,
+    `creation` DATETIME DEFAULT CURRENT_TIMESTAMP,
     `deliveryAddress` varchar(200) not null,
-    `contact` varchar(100),
-    `status` varchar(100) not null,
-    `customer_id` int(64) null,
-    `store_id` int(64) not null,
+    `contact` varchar(100) not null,
+    `status` varchar(100)  not null,
+    `customer_id` int(64)  not null,
+    `store_id` int(64)     not null,
     primary key (id)
-);
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
+ALTER TABLE orders add FOREIGN KEY (store_id) REFERENCES store (id);
+ALTER TABLE orders add FOREIGN KEY (customer_id) REFERENCES customer (id);
+
+/*Data for the table `orders` */
 insert  into `orders` (`id`, `deliveryAddress`, `contact`, `status`, `customer_id`, `store_id`) values (1, 'Street Test 01', 'fred', 'OK', 1, 1);
 
 /* Table structure for table `order_item` */
-DROP TABLE IF EXISTS `order_item`;
+DROP TABLE IF EXISTS `order_items`;
 
 create table order_items (
     `id` int(64) NOT NULL AUTO_INCREMENT,
-    `quantity` decimal(19,2),
-    `price` decimal(19,2),
-    `product_id` int(64) not null,
-    `order_id` int(64) not null,
+    `quantity` decimal(19,2) not null,
+    `price` decimal(19,2)    not null,
+    `product_id` int(64)     not null,
+    `order_id` int(64)       not null,
     primary key (id)
-);
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
-/*Data for the table `product` */
+ALTER TABLE order_items add FOREIGN KEY (product_id) REFERENCES product (id);
+ALTER TABLE order_items add FOREIGN KEY (order_id)   REFERENCES orders (id);
+
+/*Data for the table `order_items` */
 insert  into `order_items` (`id`, `quantity`, `price`, `product_id`, `order_id`) values (1, '10', '20.30', 1, 1);
 
 /*Table structure for table `hibernate_sequence` */
