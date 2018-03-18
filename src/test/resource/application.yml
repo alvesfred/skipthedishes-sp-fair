@@ -20,5 +20,3 @@ spring:
         username: skipthedishes
         password: skipthedishes
         driver-class-name: com.mysql.jdbc.Driver              
- 
-  

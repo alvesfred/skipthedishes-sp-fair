@@ -18,7 +18,8 @@ spring:
 #    profiles:
 #    active: default
   session:
-    store-type: jdbc   
+    store-type: jdbc
+
   jpa:
       database: MYSQL
       hibernate:
@@ -29,3 +30,10 @@ spring:
         username: skipthedishes
         password: skipthedishes
         driver-class-name: com.mysql.jdbc.Driver              
+
+# Default security
+security:
+    user:
+      name: admin
+      password: admin
+      role: ADMIN

@@ -23,7 +23,7 @@ import br.sp.fair.fredericoalves.skipthedishes.services.CustomerService;
  *
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/customer")
 // FIXME
 //public class CustomerController extends ControllerDefault<Customer, CustomerService> {
 public class CustomerController {

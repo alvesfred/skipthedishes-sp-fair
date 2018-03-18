@@ -12,14 +12,14 @@ import br.sp.fair.fredericoalves.skipthedishes.model.Product;
 import br.sp.fair.fredericoalves.skipthedishes.services.ProductService;
 
 /**
- * Product Controller
+ * Store Controller
  *
  * @author frederico.alves
  *
  */
 @RestController
-@RequestMapping("/api/v1/product")
-public class ProductController {//extends ControllerDefault<Product, ProductService> {
+@RequestMapping("/api/v1/store")
+public class StoreController {//extends ControllerDefault<Product, ProductService> {
 
 	@Autowired
 	protected ProductService service;
