@@ -11,12 +11,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import br.sp.fair.fredericoalves.skipthedishes.services.OrderService;
 
 /**
- * Customer Service Test
+ * Order Service Test
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfig.class })
 public class OrderServiceTest {
-    @Autowired
+    @Autowired(required = true)
     OrderService service;
 
     @Test

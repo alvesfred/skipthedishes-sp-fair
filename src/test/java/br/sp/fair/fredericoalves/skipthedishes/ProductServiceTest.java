@@ -8,16 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import br.sp.fair.fredericoalves.skipthedishes.services.OrderService;
+import br.sp.fair.fredericoalves.skipthedishes.services.ProductService;
 
 /**
- * Customer Service Test
+ * Product Service Test
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfig.class })
 public class ProductServiceTest {
-    @Autowired
-    OrderService service;
+    @Autowired(required = true)
+    ProductService service;
 
     @Test
     public void testList() {

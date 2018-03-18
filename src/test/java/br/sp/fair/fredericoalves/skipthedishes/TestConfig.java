@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  *
  */
 @Configuration
-@ComponentScan(basePackages = {"br.sp.fair.fredericoalves.skipthedishes.services"})
+@ComponentScan(basePackages = {"br.sp.fair.fredericoalves.skipthedishes"})
 public class TestConfig {
 
 }
