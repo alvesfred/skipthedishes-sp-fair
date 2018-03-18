@@ -2,18 +2,64 @@
            xmlns="http://www.hazelcast.com/schema/config"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <map name="contactMap">
+    <map name="customerMap">
         <time-to-live-seconds>10</time-to-live-seconds>
         <max-size>200</max-size>
     </map>
-    <cache name="contactMap">
+
+    <map name="storeMap">
+        <time-to-live-seconds>10</time-to-live-seconds>
+        <max-size>200</max-size>
+    </map>
+
+    <map name="productMap">
+        <time-to-live-seconds>10</time-to-live-seconds>
+        <max-size>200</max-size>
+    </map>
+
+    <map name="orderMap">
+        <time-to-live-seconds>10</time-to-live-seconds>
+        <max-size>200</max-size>
+    </map>
+
+    <map name="OrderItemMap">
+        <time-to-live-seconds>10</time-to-live-seconds>
+        <max-size>200</max-size>
+    </map>
+
+    <cache name="customerList">
         <eviction size="100"/>
         <statistics-enabled>true</statistics-enabled>
         <management-enabled>true</management-enabled>
     </cache>
+
+    <cache name="productList">
+        <eviction size="100"/>
+        <statistics-enabled>true</statistics-enabled>
+        <management-enabled>true</management-enabled>
+    </cache>
+
+    <cache name="storeList">
+        <eviction size="100"/>
+        <statistics-enabled>true</statistics-enabled>
+        <management-enabled>true</management-enabled>
+    </cache>
+
+    <cache name="orderList">
+        <eviction size="100"/>
+        <statistics-enabled>true</statistics-enabled>
+        <management-enabled>true</management-enabled>
+    </cache>
+
+    <cache name="orderItemList">
+        <eviction size="100"/>
+        <statistics-enabled>true</statistics-enabled>
+        <management-enabled>true</management-enabled>
+    </cache>
+
     <network>
         <join>
-            <tcp-ip enabled="false"/>
+            <tcp-ip enabled="true"/>
             <multicast enabled="false"/>
         </join>
     </network>
