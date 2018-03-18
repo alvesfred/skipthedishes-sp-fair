@@ -10,23 +10,22 @@ server:
 
 management:
   security:  
-    enabled: false 
+    enabled: true 
     
 spring:
   application:
     name: skipthedishes-sp-fair
-    profiles:
-    active:
-      default   
+#    profiles:
+#    active: default
+  session:
+    store-type: jdbc   
   jpa:
       database: MYSQL
       hibernate:
         ddl-auto: none
-        dialect:  org.hibernate.dialect.MySQLDialect        
+#        dialect:  org.hibernate.dialect.MySQLDialect        
   datasource:
         url: jdbc:mysql://127.0.0.1:3306/skipthedishes-sp-fair?zeroDateTimeBehavior=convertToNull&amp;useUnicode=yes&amp;characterEncoding=UTF-8
         username: skipthedishes
         password: skipthedishes
         driver-class-name: com.mysql.jdbc.Driver              
- 
-  
