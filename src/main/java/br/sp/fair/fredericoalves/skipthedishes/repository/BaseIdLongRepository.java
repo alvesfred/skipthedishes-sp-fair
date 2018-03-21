@@ -1,6 +1,6 @@
 package br.sp.fair.fredericoalves.skipthedishes.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import br.sp.fair.fredericoalves.skipthedishes.model.Model;
 
@@ -10,6 +10,6 @@ import br.sp.fair.fredericoalves.skipthedishes.model.Model;
  * @author frederico.alves
  *
  */
-public interface BaseIdLongRepository<T extends Model> extends CrudRepository<T, Long> {
+public interface BaseIdLongRepository<T extends Model> extends PagingAndSortingRepository<T, Long> {
 
 }
