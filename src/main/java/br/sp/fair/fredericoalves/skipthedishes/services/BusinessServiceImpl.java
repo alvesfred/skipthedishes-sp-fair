@@ -8,10 +8,11 @@ import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import br.sp.fair.fredericoalves.skipthedishes.model.Model;
+import br.sp.fair.fredericoalves.skipthedishes.repository.BaseIdLongRepository;
 
 /**
  * Base Service
@@ -21,15 +22,22 @@ import br.sp.fair.fredericoalves.skipthedishes.model.Model;
  * @param <T>
  * @param <R>
  */
-public class ServiceBusiness<S extends HazelcastService<T>, T extends Model, R extends CrudRepository<T, Long>> {
-
-    private static final Logger logger = LoggerFactory.getLogger(ServiceBusiness.class);
+public class BusinessServiceImpl<T extends Model, H extends HazelcastService<T>, R extends BaseIdLongRepository<T>> 
+		implements BusinessService<T> {
 
 	@Autowired
 	protected R repository;
 
 	@Autowired
-	private S cacheService;
+	private H cacheService;
+
+	@Autowired
+	private Logger logger;
+
+	@Bean
+    protected Logger getLogger() {
+    	return LoggerFactory.getLogger(this.getClass());
+    }
 
 	public T save(T entity) {
 		beforeInsert();
@@ -116,7 +124,7 @@ public class ServiceBusiness<S extends HazelcastService<T>, T extends Model, R e
 	 * It is just an example for using cache to DB, but the better solution is using datagrid: JBoss DataGrid, Apache Ignite, etc...memcache...hotrod
 	 */
     @Scheduled(fixedRate = 2000, initialDelay = 5000)
-    public void scheduleTaskDispatchDB() {
+    protected void scheduleTaskDispatchDB() {
         logger.info("Fixed Rate Task - Dispatch...");
         getCacheService().list().forEach(d -> {
         	repository.save(d);
@@ -125,9 +133,10 @@ public class ServiceBusiness<S extends HazelcastService<T>, T extends Model, R e
  
 	/**
 	 * Service Cache
+	 *
 	 * @return
 	 */
-	protected S getCacheService() {
+	protected H getCacheService() {
 		return cacheService;
 	}
 }

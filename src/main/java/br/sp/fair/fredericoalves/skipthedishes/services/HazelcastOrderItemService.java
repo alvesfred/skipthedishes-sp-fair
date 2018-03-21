@@ -13,9 +13,6 @@ import br.sp.fair.fredericoalves.skipthedishes.model.OrderItem;
 @Repository("hazelcastOrderItemService")
 public class HazelcastOrderItemService extends HazelcastAbstractService<OrderItem> {
 
-    public HazelcastOrderItemService() {
-    }
-
 	@Override
 	protected String getCacheListName() {
 		return "orderItemList";

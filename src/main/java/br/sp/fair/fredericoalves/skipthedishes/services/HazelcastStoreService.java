@@ -13,9 +13,6 @@ import br.sp.fair.fredericoalves.skipthedishes.model.Store;
 @Repository("hazelcastStoreService")
 public class HazelcastStoreService extends HazelcastAbstractService<Store> {
 
-    public HazelcastStoreService() {
-    }
-
 	@Override
 	protected String getCacheListName() {
 		return "storeList";

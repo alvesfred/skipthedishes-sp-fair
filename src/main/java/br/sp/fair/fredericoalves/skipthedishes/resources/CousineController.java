@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.sp.fair.fredericoalves.skipthedishes.model.Store;
-import br.sp.fair.fredericoalves.skipthedishes.services.ProductService;
 import br.sp.fair.fredericoalves.skipthedishes.services.StoreService;
 
 /**
@@ -19,31 +18,25 @@ import br.sp.fair.fredericoalves.skipthedishes.services.StoreService;
  */
 @RestController
 @RequestMapping("/api/v1/cousine")
-public class CousineController {
-
-	@Autowired
-	protected ProductService prodService;
+public class CousineController extends ControllerDefault<Store, StoreService> {
 
 	@Autowired
 	protected StoreService storeService;
 
 	@SuppressWarnings("rawtypes")
 	@GetMapping("/")
-	public ResponseEntity get() {
+	public ResponseEntity info() {
 		return ResponseEntity.ok().build();
 	}
 
 	@GetMapping("/search/{searchTex}")
-	public Store get(@PathVariable Long searchTex) {
-		// TODO
-		//return storeService.findOne(id);
+	public Store get(@PathVariable String searchTex) {
+		// TODO get with search of a product on store
 		return null;
 	}
 
 	@GetMapping("/{cousineId}/stores")
 	public Store getStores(@PathVariable Long cousineId) {
-		// TODO
-		//return storeService.findOne(id);
-		return null;
+		return super.get(cousineId);
 	}
 }

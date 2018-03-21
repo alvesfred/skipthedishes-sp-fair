@@ -12,6 +12,6 @@ import br.sp.fair.fredericoalves.skipthedishes.repository.ProductRepository;
  *
  */
 @Repository
-public class ProductService extends ServiceBusiness<HazelcastProductService, Product, ProductRepository> {
+public class ProductService extends BusinessServiceImpl<Product, HazelcastProductService, ProductRepository> {
 
 }

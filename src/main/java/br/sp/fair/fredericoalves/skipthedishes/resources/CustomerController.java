@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,30 +23,26 @@ import br.sp.fair.fredericoalves.skipthedishes.services.CustomerService;
  */
 @RestController
 @RequestMapping("/api/v1/customer")
-// FIXME
-//public class CustomerController extends ControllerDefault<Customer, CustomerService> {
-public class CustomerController {
-
-	@Autowired
-	private CustomerService service;
+public class CustomerController extends ControllerDefault<Customer, CustomerService> {
 
     @PostMapping(path = "/auth", produces = "application/json;charset=UTF-8")
 	public Token auth() throws Exception {
-		return new Token(); // TODO Auth Service on parent service
+    	// FIXME
+		return new Token(); // TODO Auth Service Listener
 	}	
 
     @PostMapping(path = "/save", produces = "application/json;charset=UTF-8")
 	public Customer save(@RequestBody @Valid Customer entity) {
-		return service.save(entity);
+		return super.save(entity);
 	}
 
 	@GetMapping("/list")
 	public Collection<Customer> get() {
-		return service.findAll();
+		return super.get();
 	}
 
 	@GetMapping("/get/{id}")
 	public Customer get(@PathVariable Long id) {
-		return service.findOne(id);
+		return super.get(id);
 	}
 }

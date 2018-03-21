@@ -13,9 +13,6 @@ import br.sp.fair.fredericoalves.skipthedishes.model.Customer;
 @Repository("hazelcastCustomerService")
 public class HazelcastCustomerService extends HazelcastAbstractService<Customer> {
 
-    public HazelcastCustomerService() {
-    }
-
 	@Override
 	protected String getCacheListName() {
 		return "customerList";

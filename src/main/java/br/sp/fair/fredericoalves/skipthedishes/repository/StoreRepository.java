@@ -1,6 +1,5 @@
 package br.sp.fair.fredericoalves.skipthedishes.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.sp.fair.fredericoalves.skipthedishes.model.Store;
@@ -12,6 +11,6 @@ import br.sp.fair.fredericoalves.skipthedishes.model.Store;
  *
  */
 @Repository
-public interface StoreRepository extends JpaRepository<Store, Long> {
+public interface StoreRepository extends BaseIdLongRepository<Store> {
 
 }
