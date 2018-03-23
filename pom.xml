@@ -5,7 +5,7 @@
 
 	<groupId>br.sp.fair.fredericoalves</groupId>
 	<artifactId>skipthedishes-sp-fair</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.0-snapshot</version>
 
 	<packaging>jar</packaging>
 
