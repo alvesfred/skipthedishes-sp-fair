@@ -26,9 +26,12 @@ import br.sp.fair.fredericoalves.skipthedishes.services.BusinessService;
 public abstract class ControllerDefault<T extends LongModel, S extends BusinessService<T>> 
 		implements Controller<T> {
 
-	//@Autowired(required = true)
-	protected static Logger logger;
+	protected final Logger logger;
 
+	public ControllerDefault(Logger logger) {
+		this.logger = logger;
+	}
+	
 	@PostMapping("/save")
 	public T save(@RequestBody @Valid T entity) {
 		return getServiceBus().save(entity);
@@ -39,7 +42,7 @@ public abstract class ControllerDefault<T extends LongModel, S extends BusinessS
 		return getServiceBus().update(entity);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
 		getServiceBus().delete(id);
 	}

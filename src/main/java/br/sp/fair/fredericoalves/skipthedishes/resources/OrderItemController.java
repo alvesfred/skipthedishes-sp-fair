@@ -4,11 +4,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +30,10 @@ public class OrderItemController extends ControllerDefault<Order, OrderService> 
 	@Autowired
 	protected OrderService serviceBus;
 
+	public OrderItemController(Logger logger) {
+		super(logger);
+	}
+
 	@Autowired
 	@Qualifier("orderItemService")
 	protected OrderItemService serviceOrderItem;
@@ -42,13 +46,6 @@ public class OrderItemController extends ControllerDefault<Order, OrderService> 
 	@GetMapping("/get/{id}")
 	public Order get(@PathVariable Long id) {
 		return super.get(id);
-	}
-
-	@PostMapping("/save")
-	public Order get(@PathVariable OrderItem item) {
-		OrderItem i = getServiceItemOrder().save(item);
-
-		return i.getOrder();
 	}
 
 	@GetMapping("/orders")

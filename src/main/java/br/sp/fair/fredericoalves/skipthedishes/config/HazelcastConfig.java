@@ -23,12 +23,14 @@ import com.hazelcast.core.HazelcastInstance;
 //@Import({LocalhostListConfig.class, LocalhostMapConfig.class})
 public class HazelcastConfig {
 
+	static final String LOCALHOST = "127.0.0.1";
+
     @Bean
     public Config config() {
         Config config = new Config();
         JoinConfig joinConfig = config.getNetworkConfig().getJoin();
         joinConfig.getMulticastConfig().setEnabled(false);
-        joinConfig.getTcpIpConfig().setEnabled(true).setMembers(singletonList("127.0.0.1"));
+        joinConfig.getTcpIpConfig().setEnabled(true).setMembers(singletonList(LOCALHOST));
 
         return config;
     }

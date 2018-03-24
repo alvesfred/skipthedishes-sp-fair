@@ -1,5 +1,6 @@
 package br.sp.fair.fredericoalves.skipthedishes.resources;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,12 +24,17 @@ public class CousineController extends ControllerDefault<Store, StoreService> {
 	@Autowired
 	protected StoreService serviceBus;
 
+	public CousineController(Logger logger) {
+		super(logger);
+	}
+
 	@SuppressWarnings("rawtypes")
 	@GetMapping("/")
 	public ResponseEntity info() {
 		return ResponseEntity.ok().build();
 	}
 
+	// Warning whenever execution is over 3 sec
 	@GetMapping("/search/{searchTex}")
 	public Store search(@PathVariable String searchTex) {
 		// TODO get with search of a product on store

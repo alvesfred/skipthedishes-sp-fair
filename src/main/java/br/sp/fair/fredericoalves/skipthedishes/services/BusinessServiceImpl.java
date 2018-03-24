@@ -3,6 +3,7 @@ package br.sp.fair.fredericoalves.skipthedishes.services;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 
 import org.slf4j.Logger;
@@ -22,7 +23,11 @@ import br.sp.fair.fredericoalves.skipthedishes.repository.BaseIdLongRepository;
 public abstract class BusinessServiceImpl<T extends LongModel, H extends HazelcastService<T>, R extends BaseIdLongRepository<T>> 
 		implements BusinessService<T> {
 
-	protected static Logger logger;
+	private Logger logger;
+
+	protected BusinessServiceImpl(Logger logger) {
+		this.logger = logger;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -58,6 +63,10 @@ public abstract class BusinessServiceImpl<T extends LongModel, H extends Hazelca
 		afterDelete(entity);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see br.sp.fair.fredericoalves.skipthedishes.services.BusinessService#delete(java.lang.Long)
+	 */
 	public void delete(Long id) {
 		beforeDelete();
 		getCacheService().remove(id);
@@ -114,27 +123,30 @@ public abstract class BusinessServiceImpl<T extends LongModel, H extends Hazelca
 	}
 
 	protected void beforeInsert() {
-		 logger.info("before insert...");
 	}
 
 	protected void beforeUpdate() {
-		logger.info("before update...");
 	}
 
 	protected void beforeDelete() {
-		logger.info("before delete...");
 	}
 
 	/**
 	 * Dispatch data into the database
 	 * It is just an example for using cache to DB, but the better solution is using datagrid: JBoss DataGrid, Apache Ignite, etc...memcache...hotrod
 	 */
-    @Scheduled(fixedRate = 2000, initialDelay = 5000)
+	@Scheduled(fixedRate = 2000, initialDelay = 5000)
     protected void scheduleTaskDispatchDB() {
-        logger.info("Fixed Rate Task - Dispatch...");
-        getCacheService().list().forEach(d -> {
+		logger.info("Storing data from cache to database...");
+
+		final AtomicInteger count = new AtomicInteger(0);
+
+        getCacheService().list().stream().forEach(d -> {
         	getRepository().save(d);
+        	count.incrementAndGet();
         });
+
+        logger.info("Number of data item stored into database: " + count.get());
     }
 
     /**

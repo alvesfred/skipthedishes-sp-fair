@@ -1,5 +1,6 @@
 package br.sp.fair.fredericoalves.skipthedishes.services;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,10 @@ public class ProductService extends BusinessServiceImpl<Product, HazelcastProduc
 
 	@Autowired
 	private HazelcastProductService cacheService;
+
+	public ProductService(Logger logger) {
+		super(logger);
+	}
 
 	@Override
 	protected ProductRepository getRepository() {

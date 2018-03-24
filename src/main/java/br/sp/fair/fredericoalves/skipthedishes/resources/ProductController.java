@@ -2,6 +2,7 @@ package br.sp.fair.fredericoalves.skipthedishes.resources;
 
 import java.util.Collection;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,10 @@ public class ProductController extends ControllerDefault<Product, ProductService
 
 	@Autowired
 	private ProductService serviceBus;
+
+	ProductController(Logger logger) {
+		super(logger);
+	}
 
 	@GetMapping("/list")
 	public Collection<Product> get() {

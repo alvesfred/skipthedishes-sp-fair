@@ -48,7 +48,6 @@ import lombok.extern.slf4j.Slf4j;
  * @author frederico.alves
  *
  */
-// TODO
 @SuppressWarnings("deprecation")
 @Configuration
 @EnableSpringHttpSession

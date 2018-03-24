@@ -29,9 +29,13 @@ JUnit
 
 # MySQL version 5.5
 
-$ Docker: sudo docker run --name skipthedishes-sp-fair -p 3306:3306 -e MYSQL_ROOT_PASSWORD=${pwd} -d mysql:5.5
+Docker
 
-$ docker exec -it skipthedishes-sp-fair bash
+$ sudo docker run --name skipthedishes-sp-fair -p 3306:3306 -e MYSQL_ROOT_PASSWORD=${pwd} -d mysql:5.5
+
+$ sudo docker exec -it skipthedishes-sp-fair bash
+
+$ sudo docker run -it --link skipthedishes-sp-fair:mysql --rm mysql sh -c 'exec mysql -h "$IP" -P "3306" -uroot -p"$pwd"'
 
 NOTE: see the application.yml for additional configuration
 

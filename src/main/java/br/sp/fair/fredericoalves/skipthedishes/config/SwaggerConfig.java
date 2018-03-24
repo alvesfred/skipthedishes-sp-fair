@@ -45,9 +45,10 @@ public class SwaggerConfig {
                 .groupName("skipthedishes-sp-fair")
                 .apiInfo(getApiInfo())
                 .select()
-                //.apis(RequestHandlerSelectors.any())
-                .apis(RequestHandlerSelectors.basePackage("br.sp.fair.fredericoalves.skipthedishes"))
-                .paths(regex("/api.*"))
+                .apis(RequestHandlerSelectors.any())
+                //.apis(RequestHandlerSelectors.basePackage("br.sp.fair.fredericoalves.skipthedishes"))
+                //.paths(regex("/api.*"))
+                .paths(regex("/*"))
                 .build();
     }
 

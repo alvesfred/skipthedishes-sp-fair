@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,10 @@ public class CustomerController extends ControllerDefault<Customer, CustomerServ
 
 	@Autowired
 	private CustomerService serviceBus;
+
+	public CustomerController(Logger logger) {
+		super(logger);
+	}
 
     @PostMapping(path = "/auth", produces = "application/json;charset=UTF-8")
 	public Token auth() throws Exception {
