@@ -1,5 +1,7 @@
 package br.sp.fair.fredericoalves.skipthedishes.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import br.sp.fair.fredericoalves.skipthedishes.model.Store;
@@ -14,4 +16,20 @@ import br.sp.fair.fredericoalves.skipthedishes.repository.StoreRepository;
 @Service
 public class StoreService extends BusinessServiceImpl<Store, HazelcastStoreService, StoreRepository> {
 
+	@Autowired
+	@Qualifier("storeRepository")
+	private StoreRepository storeRepository;
+
+	@Autowired
+	private HazelcastStoreService cacheService;
+
+	@Override
+	protected StoreRepository getRepository() {
+		return storeRepository;
+	}
+
+	@Override
+	protected HazelcastStoreService getCacheService() {
+		return cacheService;
+	}
 }

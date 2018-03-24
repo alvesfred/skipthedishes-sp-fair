@@ -3,7 +3,6 @@ package br.sp.fair.fredericoalves.skipthedishes.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import br.sp.fair.fredericoalves.skipthedishes.model.Order;
@@ -15,9 +14,8 @@ import br.sp.fair.fredericoalves.skipthedishes.model.Order;
  *
  */
 @Repository
-@Component
 public interface OrderRepository extends BaseIdLongRepository<Order> {
 
 	@EntityGraph(attributePaths = { "customer", "store" })
-	public List<Order> findAll();
+	List<Order> findAll();
 }

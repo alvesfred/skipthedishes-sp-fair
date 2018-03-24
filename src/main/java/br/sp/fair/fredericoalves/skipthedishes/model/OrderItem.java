@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderItem implements Model {
+public class OrderItem implements LongModel {
 
 	/**
 	 * serial

@@ -2,7 +2,7 @@ package br.sp.fair.fredericoalves.skipthedishes.resources;
 
 import java.util.Collection;
 
-import br.sp.fair.fredericoalves.skipthedishes.model.Model;
+import br.sp.fair.fredericoalves.skipthedishes.model.LongModel;
 
 /**
  * Controller (Base Resource)
@@ -11,7 +11,7 @@ import br.sp.fair.fredericoalves.skipthedishes.model.Model;
  *
  * @param <T>
  */
-public interface Controller<T extends Model> {
+public interface Controller<T extends LongModel> {
 
 	/**
 	 * Save/Persist
@@ -50,5 +50,4 @@ public interface Controller<T extends Model> {
 	 * @return
 	 */
 	T get(Long id);
-
 }

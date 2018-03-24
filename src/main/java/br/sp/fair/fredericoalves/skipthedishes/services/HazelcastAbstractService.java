@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.PreDestroy;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hazelcast.core.HazelcastInstance;
@@ -11,7 +12,8 @@ import com.hazelcast.core.IList;
 import com.hazelcast.core.IMap;
 
 import br.sp.fair.fredericoalves.skipthedishes.model.Customer;
-import br.sp.fair.fredericoalves.skipthedishes.model.Model;
+import br.sp.fair.fredericoalves.skipthedishes.model.LongModel;
+import lombok.Getter;
 
 /**
  * Hazelcast Abstract Service/Repo
@@ -19,10 +21,12 @@ import br.sp.fair.fredericoalves.skipthedishes.model.Model;
  * @author Frederico Cerqueira Alves
  * @see fredericocerqueiraalves@gmail.com
  */
-//@Repository("hazelcastService")
-public abstract class HazelcastAbstractService<T extends Model> implements HazelcastService<T> {
+public abstract class HazelcastAbstractService<T extends LongModel> implements HazelcastService<T> {
 
-    @Autowired
+	protected static Logger logger;
+
+	@Autowired
+    @Getter
     private HazelcastInstance hazelcastInstance;
 
     /**
@@ -38,9 +42,9 @@ public abstract class HazelcastAbstractService<T extends Model> implements Hazel
      *
      * @return
      */
-    protected HazelcastInstance getHazelcastInstance() {
-    	return hazelcastInstance;
-    }
+    //protected HazelcastInstance getHazelcastInstance() {
+    //	return hazelcastInstance;
+    //}
 
 	@Override
 	public T get(Long id) {

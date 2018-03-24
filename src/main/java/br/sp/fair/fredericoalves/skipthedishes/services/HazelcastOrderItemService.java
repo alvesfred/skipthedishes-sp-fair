@@ -1,6 +1,6 @@
 package br.sp.fair.fredericoalves.skipthedishes.services;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import br.sp.fair.fredericoalves.skipthedishes.model.OrderItem;
 
@@ -10,7 +10,7 @@ import br.sp.fair.fredericoalves.skipthedishes.model.OrderItem;
  * @author Frederico Cerqueira Alves
  * @see fredericocerqueiraalves@gmail.com
  */
-@Repository("hazelcastOrderItemService")
+@Service
 public class HazelcastOrderItemService extends HazelcastAbstractService<OrderItem> {
 
 	@Override

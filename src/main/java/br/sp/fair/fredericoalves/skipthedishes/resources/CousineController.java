@@ -21,7 +21,7 @@ import br.sp.fair.fredericoalves.skipthedishes.services.StoreService;
 public class CousineController extends ControllerDefault<Store, StoreService> {
 
 	@Autowired
-	protected StoreService storeService;
+	protected StoreService serviceBus;
 
 	@SuppressWarnings("rawtypes")
 	@GetMapping("/")
@@ -36,7 +36,12 @@ public class CousineController extends ControllerDefault<Store, StoreService> {
 	}
 
 	@GetMapping("/{cousineId}/stores")
-	public Store getStores(@PathVariable Long cousineId) {
+	public Store getStoresWithProducts(@PathVariable Long cousineId) {
 		return super.get(cousineId);
+	}
+
+	@Override
+	protected StoreService getServiceBus() {
+		return serviceBus;
 	}
 }

@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Store implements Model {
+public class Store implements LongModel {
 
 	/**
 	 * serial

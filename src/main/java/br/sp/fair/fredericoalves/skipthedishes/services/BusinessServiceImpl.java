@@ -6,12 +6,9 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import br.sp.fair.fredericoalves.skipthedishes.model.Model;
+import br.sp.fair.fredericoalves.skipthedishes.model.LongModel;
 import br.sp.fair.fredericoalves.skipthedishes.repository.BaseIdLongRepository;
 
 /**
@@ -22,23 +19,15 @@ import br.sp.fair.fredericoalves.skipthedishes.repository.BaseIdLongRepository;
  * @param <T>
  * @param <R>
  */
-public class BusinessServiceImpl<T extends Model, H extends HazelcastService<T>, R extends BaseIdLongRepository<T>> 
+public abstract class BusinessServiceImpl<T extends LongModel, H extends HazelcastService<T>, R extends BaseIdLongRepository<T>> 
 		implements BusinessService<T> {
 
-	@Autowired
-	protected R repository;
+	protected static Logger logger;
 
-	@Autowired
-	private H cacheService;
-
-	@Autowired
-	private Logger logger;
-
-	@Bean
-    protected Logger getLogger() {
-    	return LoggerFactory.getLogger(this.getClass());
-    }
-
+	/*
+	 * (non-Javadoc)
+	 * @see br.sp.fair.fredericoalves.skipthedishes.services.BusinessService#save(br.sp.fair.fredericoalves.skipthedishes.model.LongModel)
+	 */
 	public T save(T entity) {
 		beforeInsert();
 		getCacheService().add(entity);
@@ -47,6 +36,10 @@ public class BusinessServiceImpl<T extends Model, H extends HazelcastService<T>,
 		return entity;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see br.sp.fair.fredericoalves.skipthedishes.services.BusinessService#update(br.sp.fair.fredericoalves.skipthedishes.model.LongModel)
+	 */
 	public T update(T entity) {
 		beforeUpdate();
 		getCacheService().add(entity);
@@ -55,6 +48,10 @@ public class BusinessServiceImpl<T extends Model, H extends HazelcastService<T>,
 		return entity;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see br.sp.fair.fredericoalves.skipthedishes.services.BusinessService#delete(br.sp.fair.fredericoalves.skipthedishes.model.LongModel)
+	 */
 	public void delete(T entity) {
 		beforeDelete();
 		getCacheService().remove(entity.getId());
@@ -67,20 +64,29 @@ public class BusinessServiceImpl<T extends Model, H extends HazelcastService<T>,
 		afterDelete(id);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see br.sp.fair.fredericoalves.skipthedishes.services.BusinessService#findAll()
+	 */
 	public Collection<T> findAll() {
 		if (getCacheService().list().isEmpty()) {
-			for (Iterator<T> ite = repository.findAll().iterator(); ite.hasNext(); ) {
+			for (Iterator<T> ite = getRepository().findAll().iterator(); ite.hasNext(); ) {
 				getCacheService().add(ite.next());
+				ite.remove();
 			}
 		}
 
-		return cacheService.list();
+		return getCacheService().list();
 	}
 
 	final Predicate<Long> notFound = i -> Objects.isNull(getCacheService().get(i));
+	/*
+	 * (non-Javadoc)
+	 * @see br.sp.fair.fredericoalves.skipthedishes.services.BusinessService#findOne(java.lang.Long)
+	 */
 	public T findOne(Long id) {
 		if (notFound.test(id)) {
-			T data = repository.findOne(id);
+			T data = getRepository().findOne(id);
 			
 			if (!Objects.isNull(data))
 				getCacheService().add(data);
@@ -91,20 +97,20 @@ public class BusinessServiceImpl<T extends Model, H extends HazelcastService<T>,
 
 	// It will be done by scheduler
 	protected void afterInsert(T entity) {
-		//repository.save(entity);
+		//getRepository().save(entity);
 	}
 
 	// It will be done by scheduler
 	protected void afterUpdate(T entity) {
-		//repository.save(entity);
+		//getRepository().save(entity);
 	}
 
 	protected void afterDelete(Long id) {
-		repository.delete(id);
+		getRepository().delete(id);
 	}
 
 	protected void afterDelete(T entity) {
-		repository.delete(entity);
+		getRepository().delete(entity);
 	}
 
 	protected void beforeInsert() {
@@ -120,23 +126,28 @@ public class BusinessServiceImpl<T extends Model, H extends HazelcastService<T>,
 	}
 
 	/**
-	 * Going to the database
+	 * Dispatch data into the database
 	 * It is just an example for using cache to DB, but the better solution is using datagrid: JBoss DataGrid, Apache Ignite, etc...memcache...hotrod
 	 */
     @Scheduled(fixedRate = 2000, initialDelay = 5000)
     protected void scheduleTaskDispatchDB() {
         logger.info("Fixed Rate Task - Dispatch...");
         getCacheService().list().forEach(d -> {
-        	repository.save(d);
+        	getRepository().save(d);
         });
     }
- 
-	/**
-	 * Service Cache
-	 *
-	 * @return
-	 */
-	protected H getCacheService() {
-		return cacheService;
-	}
+
+    /**
+     * Default Repository
+     *
+     * @return
+     */
+    protected abstract R getRepository();
+
+    /**
+     * Cache Service
+     *
+     * @return
+     */
+	protected abstract H getCacheService();
 }

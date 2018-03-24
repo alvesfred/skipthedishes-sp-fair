@@ -2,7 +2,7 @@ package br.sp.fair.fredericoalves.skipthedishes.services;
 
 import java.util.Collection;
 
-import br.sp.fair.fredericoalves.skipthedishes.model.Model;
+import br.sp.fair.fredericoalves.skipthedishes.model.LongModel;
 
 /**
  * Service Base Business
@@ -11,7 +11,7 @@ import br.sp.fair.fredericoalves.skipthedishes.model.Model;
  *
  * @param <T>
  */
-public interface BusinessService<T extends Model> {
+public interface BusinessService<T extends LongModel> {
 	/**
 	 * Save/Persist
 	 *

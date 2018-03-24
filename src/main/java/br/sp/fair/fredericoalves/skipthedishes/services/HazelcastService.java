@@ -2,7 +2,7 @@ package br.sp.fair.fredericoalves.skipthedishes.services;
 
 import java.util.List;
 
-import br.sp.fair.fredericoalves.skipthedishes.model.Model;
+import br.sp.fair.fredericoalves.skipthedishes.model.LongModel;
 
 /**
  * Hazelcast Default Service
@@ -10,7 +10,7 @@ import br.sp.fair.fredericoalves.skipthedishes.model.Model;
  * @author Frederico Cerqueira Alves
  * @see fredericocerqueiraalves@gmail.com
  */
-public interface HazelcastService<T extends Model> {
+public interface HazelcastService<T extends LongModel> {
 
 	/**
 	 * Get
