@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,7 @@ public class OrderItemController extends ControllerDefault<Order, OrderService> 
 	protected OrderService serviceBus;
 
 	@Autowired
+	@Qualifier("orderItemService")
 	protected OrderItemService serviceOrderItem;
 
 	@GetMapping("/list")

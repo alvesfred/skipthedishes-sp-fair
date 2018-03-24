@@ -5,7 +5,6 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +26,8 @@ import br.sp.fair.fredericoalves.skipthedishes.services.BusinessService;
 public abstract class ControllerDefault<T extends LongModel, S extends BusinessService<T>> 
 		implements Controller<T> {
 
-	@Autowired(required = true)
-	protected Logger logger;
+	//@Autowired(required = true)
+	protected static Logger logger;
 
 	@PostMapping("/save")
 	public T save(@RequestBody @Valid T entity) {

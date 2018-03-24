@@ -1,10 +1,10 @@
-SkipTheDishes Challenge Project
+# SkipTheDishes Challenge Project
 
-Author: Frederico C. Alves
+Author: Frederico Cerqueira Alves
 
 SkipTheDishes - Java Developer
 
-Spring Boot Project:
+# Spring Boot Project:
 
 https://github.com/alvesfred/skipthedishes-sp-fair
 
@@ -17,7 +17,7 @@ Service,
 Resource (Rest WebServices), 
 In memory cache (Hazelcast)
 
-- Frameworks/APIs
+# Frameworks/APIs
 
 Hazelcast api, 
 Spring Boot, 
@@ -27,9 +27,16 @@ Spring Scheduler,
 Lombok, 
 JUnit
 
+# MySQL version 5.5
 
-TODO LIST...timeout event!!
+$ Docker: sudo docker run --name skipthedishes-sp-fair -p 3306:3306 -e MYSQL_ROOT_PASSWORD=${pwd} -d mysql:5.5
 
-- Token Auth
+$ docker exec -it skipthedishes-sp-fair bash
+
+NOTE: see the application.yml for additional configuration
+
+# TODO LIST...
+
+- Token Authentication from Resource calls
 - Tests
-- SQL over Repository for Cousine
+

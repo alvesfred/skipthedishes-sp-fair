@@ -30,7 +30,7 @@ public class CousineController extends ControllerDefault<Store, StoreService> {
 	}
 
 	@GetMapping("/search/{searchTex}")
-	public Store get(@PathVariable String searchTex) {
+	public Store search(@PathVariable String searchTex) {
 		// TODO get with search of a product on store
 		return null;
 	}
