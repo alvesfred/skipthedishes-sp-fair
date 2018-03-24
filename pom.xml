@@ -119,8 +119,24 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 	<build>
 		<finalName>hazelcast-spring-data</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/resource</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<testResources>
+			<testResource>
+				<directory>src/test/resource</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -129,6 +145,7 @@
 					<junitArtifactName>junit:junit:4.11</junitArtifactName>
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
@@ -147,6 +164,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
