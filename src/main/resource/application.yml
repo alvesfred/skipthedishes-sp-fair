@@ -17,11 +17,11 @@ spring:
       database: MYSQL
       hibernate:
         ddl-auto: none
-#        dialect:  org.hibernate.dialect.MySQLDialect        
+#        dialect:  org.hibernate.dialect.MySQLDialect
   datasource:
         url: jdbc:mysql://127.0.0.1:3306/mysql?zeroDateTimeBehavior=convertToNull&amp;useUnicode=yes&amp;characterEncoding=UTF-8
         username: root
-        password: skipthedishes-sp-fair
+        password: 123456
         driver-class-name: com.mysql.jdbc.Driver              
 
 # Default security

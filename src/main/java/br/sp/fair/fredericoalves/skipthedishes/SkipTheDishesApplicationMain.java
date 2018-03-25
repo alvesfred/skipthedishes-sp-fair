@@ -22,6 +22,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableCaching
 @EnableScheduling
 public class SkipTheDishesApplicationMain {
+
+	final static String DEFAULT_PATH = "br.sp.fair.fredericoalves.skipthedishes";
+
 	/**
 	 * Main App
 	 *
@@ -32,7 +35,7 @@ public class SkipTheDishesApplicationMain {
         String name;
         for (int i = 0; i < applicationContext.getBeanDefinitionNames().length; i++) {
         	name = applicationContext.getBeanDefinitionNames()[i];
-            if (name.contains("br.sp.fair.fredericoalves.skipthedishes")) 
+            if (name.contains(DEFAULT_PATH)) 
             	System.out.println("Bean name: " + name);
         }
     }

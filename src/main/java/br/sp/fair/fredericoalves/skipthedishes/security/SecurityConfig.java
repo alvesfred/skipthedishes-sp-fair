@@ -42,13 +42,34 @@ import lombok.Data;
 import lombok.experimental.Value;
 import lombok.extern.slf4j.Slf4j;
 
+@SuppressWarnings("deprecation")
+@Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+public class SecurityConfig extends GlobalMethodSecurityConfiguration {
+
+	@Autowired
+	private DomainAwarePermissionEvaluator permissionEvaluator;
+
+	@Autowired
+	private ApplicationContext applicationContext;
+
+	@Override
+	protected MethodSecurityExpressionHandler createExpressionHandler() {
+		DefaultMethodSecurityExpressionHandler expressionHandler = 
+				new DefaultMethodSecurityExpressionHandler();
+		expressionHandler.setPermissionEvaluator(permissionEvaluator);
+		expressionHandler.setApplicationContext(applicationContext);
+
+		return expressionHandler;
+	}
+}
+
 /**
  * Web Security
  *
  * @author frederico.alves
  *
  */
-@SuppressWarnings("deprecation")
 @Configuration
 @EnableSpringHttpSession
 class HttpSessionConfig {
@@ -61,27 +82,6 @@ class HttpSessionConfig {
 	@Bean
 	HttpSessionStrategy httpSessionStrategy() {
 		return new HeaderHttpSessionStrategy();
-	}
-}
-
-@Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-class SecurityConfig extends GlobalMethodSecurityConfiguration {
-
-	@Autowired
-	private DomainAwarePermissionEvaluator permissionEvaluator;
-
-	@Autowired
-	private ApplicationContext applicationContext;
-
-	@Override
-	protected MethodSecurityExpressionHandler createExpressionHandler() {
-
-		DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
-		expressionHandler.setPermissionEvaluator(permissionEvaluator);
-		expressionHandler.setApplicationContext(applicationContext);
-
-		return expressionHandler;
 	}
 }
 
