@@ -14,10 +14,13 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Store Entity Model
@@ -28,8 +31,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "store")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Store implements LongModel {
 
 	/**
@@ -48,6 +53,7 @@ public class Store implements LongModel {
 	private String address;
 
 	@JsonIgnore
+	@JsonSerialize(using = ProductIdSerializer.class)
 	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Product> items;
 	

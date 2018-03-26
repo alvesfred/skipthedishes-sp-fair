@@ -22,3 +22,5 @@
 **/pom.xml.*
 **/bower_components/angular/
 **/.external*
+**/*.log
+**/.springBeans

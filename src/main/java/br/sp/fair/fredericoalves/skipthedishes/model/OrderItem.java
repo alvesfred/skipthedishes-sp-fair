@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,6 +29,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class OrderItem implements LongModel {
 
 	/**

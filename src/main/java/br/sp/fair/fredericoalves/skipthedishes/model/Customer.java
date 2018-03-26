@@ -1,6 +1,6 @@
 package br.sp.fair.fredericoalves.skipthedishes.model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,6 +28,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Customer implements LongModel {
 
 	/**
@@ -41,18 +43,20 @@ public class Customer implements LongModel {
 	@NotEmpty
 	private String name;
 
-	//@NotEmpty
+	@NotEmpty
 	private String address;
 	
 	@NotEmpty
 	private String email;
 
-	//@NotEmpty
+	@NotEmpty
 	private String password;
 	
+	//@Convert(converter = LocalDateConverter.class)
 	@NotEmpty
-	private LocalDateTime creation;
+	private Date creation;
 
+	// Avoiding orders "many" mapping references
 	//@JsonIgnore
 	//@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	//private Set<Order> orders;

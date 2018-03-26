@@ -16,7 +16,15 @@ spring:
         ddl-auto: none
 #        dialect:  org.hibernate.dialect.MySQLDialect        
   datasource:
-        url: jdbc:mysql://127.0.0.1:3306/mysql?zeroDateTimeBehavior=convertToNull&amp;useUnicode=yes&amp;characterEncoding=UTF-8
-        username: root
-        password: skipthedishes-sp-fair
+        url: jdbc:mysql://127.0.0.1:3306/skipthedishes-sp-fair?zeroDateTimeBehavior=convertToNull&amp;useUnicode=yes&amp;characterEncoding=UTF-8
+        username: skipthedishes-sp-fair
+        password: 123456
         driver-class-name: com.mysql.jdbc.Driver              
+
+# Logger
+logging:
+  level:
+    org.springframework.web: INFO
+    org.hibernate: WARN
+    br.sp.fair: DEBUG
+  file: ./skipthedishes-sp-fair-test.log

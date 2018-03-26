@@ -1,7 +1,6 @@
 package br.sp.fair.fredericoalves.skipthedishes.services;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
@@ -79,10 +78,9 @@ public abstract class BusinessServiceImpl<T extends LongModel, H extends Hazelca
 	 */
 	public Collection<T> findAll() {
 		if (getCacheService().list().isEmpty()) {
-			for (Iterator<T> ite = getRepository().findAll().iterator(); ite.hasNext(); ) {
-				getCacheService().add(ite.next());
-				ite.remove();
-			}
+			getRepository().findAll().forEach(entity -> {
+				getCacheService().add(entity);
+			});
 		}
 
 		return getCacheService().list();
@@ -135,18 +133,19 @@ public abstract class BusinessServiceImpl<T extends LongModel, H extends Hazelca
 	 * Dispatch data into the database
 	 * It is just an example for using cache to DB, but the better solution is using datagrid: JBoss DataGrid, Apache Ignite, etc...memcache...hotrod
 	 */
-	@Scheduled(fixedRate = 2000, initialDelay = 5000)
+	@Scheduled(fixedRate = 60000, initialDelay = 10000)
     protected void scheduleTaskDispatchDB() {
 		logger.info("Storing data from cache to database...");
 
 		final AtomicInteger count = new AtomicInteger(0);
 
+		// FIXME just save entities that status changed
         getCacheService().list().stream().forEach(d -> {
         	getRepository().save(d);
         	count.incrementAndGet();
         });
 
-        logger.info("Number of data item stored into database: " + count.get());
+        logger.info("Quantity of data stored into database: " + count.get());
     }
 
     /**

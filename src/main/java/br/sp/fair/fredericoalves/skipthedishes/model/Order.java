@@ -19,9 +19,11 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -37,6 +39,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Order implements LongModel {
     /**
 	 * serial
@@ -66,10 +69,12 @@ public class Order implements LongModel {
 	private String status; // following challenge but i would like to suggest to use ENUM types
 
 	@NotNull
+	@JsonSerialize(using = CustomerIdSerializer.class)
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private Customer customer;
 
 	//@NotNull
+	@JsonSerialize(using = StoreIdSerializer.class)
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private Store store; // Restaurant
 

@@ -1,17 +1,16 @@
 package br.sp.fair.fredericoalves.skipthedishes.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PreDestroy;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IList;
 import com.hazelcast.core.IMap;
 
-import br.sp.fair.fredericoalves.skipthedishes.model.Customer;
 import br.sp.fair.fredericoalves.skipthedishes.model.LongModel;
 import lombok.Getter;
 
@@ -22,8 +21,6 @@ import lombok.Getter;
  * @see fredericocerqueiraalves@gmail.com
  */
 public abstract class HazelcastAbstractService<T extends LongModel> implements HazelcastService<T> {
-
-	protected static Logger logger;
 
 	@Autowired
     @Getter
@@ -37,15 +34,6 @@ public abstract class HazelcastAbstractService<T extends LongModel> implements H
         hazelcastInstance.getLifecycleService().shutdown();
     }
 
-    /**
-     * Hazelcast Instance
-     *
-     * @return
-     */
-    //protected HazelcastInstance getHazelcastInstance() {
-    //	return hazelcastInstance;
-    //}
-
 	@Override
 	public T get(Long id) {
 		IMap<Long, T> dataStore = getHazelcastInstance().getMap(getCacheMapName());
@@ -56,12 +44,19 @@ public abstract class HazelcastAbstractService<T extends LongModel> implements H
 	public void add(T entity) {
 		IMap<Long, T> dataStore = getHazelcastInstance().getMap(getCacheMapName());
 		dataStore.put(entity.getId(), entity);
+
+		addToList(entity);
 	}
 
     @Override
     public void remove(Long id) {
-        IMap<Long, Customer> dataStore = getHazelcastInstance().getMap(getCacheMapName());
+        IMap<Long, T> dataStore = getHazelcastInstance().getMap(getCacheMapName());
         dataStore.remove(id);
+
+        Optional<T> op = list().parallelStream().filter(entity -> entity.getId().equals(id)).findAny();
+        if (op.isPresent()) {
+        	removeFromList(op.get());
+        }
     }
 
     @Override
@@ -75,6 +70,16 @@ public abstract class HazelcastAbstractService<T extends LongModel> implements H
 		IList<T> dataStore = getHazelcastInstance().getList(getCacheListName());
 	    dataStore.addAll(list);
 	}
+
+	private void addToList(T entity) {
+		IList<T> dataStore = getHazelcastInstance().getList(getCacheListName());
+	    dataStore.add(entity);
+	}
+
+    private void removeFromList(T entity) {
+        IList<T> dataStore = getHazelcastInstance().getList(getCacheListName());
+        dataStore.remove(entity);
+    }
 
     @Override
     public void removeList() {

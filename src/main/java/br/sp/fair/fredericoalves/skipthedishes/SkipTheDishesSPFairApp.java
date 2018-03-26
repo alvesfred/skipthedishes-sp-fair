@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableStatistics
 @EnableCaching
 @EnableScheduling
-public class SkipTheDishesApplicationMain {
+public class SkipTheDishesSPFairApp {
 
 	final static String DEFAULT_PATH = "br.sp.fair.fredericoalves.skipthedishes";
 
@@ -31,7 +31,7 @@ public class SkipTheDishesApplicationMain {
 	 * @param args
 	 */
     public static void main(String[] args) {
-        final ApplicationContext applicationContext = SpringApplication.run(SkipTheDishesApplicationMain.class, args);
+        final ApplicationContext applicationContext = SpringApplication.run(SkipTheDishesSPFairApp.class, args);
         String name;
         for (int i = 0; i < applicationContext.getBeanDefinitionNames().length; i++) {
         	name = applicationContext.getBeanDefinitionNames()[i];

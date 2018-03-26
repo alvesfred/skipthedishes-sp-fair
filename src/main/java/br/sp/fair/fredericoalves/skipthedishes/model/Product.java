@@ -19,8 +19,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Product Entity Model
@@ -31,9 +33,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "product")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Product implements LongModel {
 
 	/**
