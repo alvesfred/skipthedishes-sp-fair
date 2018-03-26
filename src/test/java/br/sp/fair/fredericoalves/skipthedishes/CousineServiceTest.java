@@ -1,29 +1,25 @@
 package br.sp.fair.fredericoalves.skipthedishes;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import br.sp.fair.fredericoalves.skipthedishes.services.CustomerService;
-import br.sp.fair.fredericoalves.skipthedishes.services.OrderItemService;
+import br.sp.fair.fredericoalves.skipthedishes.model.Store;
+import br.sp.fair.fredericoalves.skipthedishes.repository.StoreRepository;
 
 /**
  * Cousine Service Test
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class CousineServiceTest {
-    @Autowired(required = true)
-    CustomerService service;
+public class CousineServiceTest extends BaseTest<Store, StoreRepository> {
 
-    @Autowired(required = true)
-    OrderItemService orderItemService;
+	@Autowired
+    private StoreRepository storeRepository;
 
-    @Test
-    public void testList() {
-        // database is not null, maybe cache for a while
-        //assertNotNull(service.findAll());
-    }
+    public CousineServiceTest() {
+		super(LoggerFactory.getLogger(CousineServiceTest.class));
+	}
+
+	@Override
+	protected StoreRepository getRepository() {
+		return storeRepository;
+	}
 }

@@ -1,28 +1,26 @@
 package br.sp.fair.fredericoalves.skipthedishes;
 
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import br.sp.fair.fredericoalves.skipthedishes.services.CustomerService;
+import br.sp.fair.fredericoalves.skipthedishes.model.Customer;
+import br.sp.fair.fredericoalves.skipthedishes.repository.CustomerRepository;
 
 /**
  * Customer Service Test
  */
+public class CustomerServiceTest extends BaseTest<Customer, CustomerRepository> {
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class CustomerServiceTest {
-    @Autowired(required = true)
-    CustomerService service;
+    @Autowired
+    private CustomerRepository customerRepository;
 
-    @Test
-    public void testList() {
-        // database is not null, maybe cache for a while
-        assertNotNull(service.findAll());
-    }
+    public CustomerServiceTest() {
+		super(LoggerFactory.getLogger(CustomerServiceTest.class));
+	}
+
+	@Override
+	protected CustomerRepository getRepository() {
+		return customerRepository;
+	}
+   
 }
