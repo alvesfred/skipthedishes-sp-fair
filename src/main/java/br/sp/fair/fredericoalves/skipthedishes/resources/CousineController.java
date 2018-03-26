@@ -37,12 +37,12 @@ public class CousineController extends ControllerDefault<Store, StoreService> {
 	// Warning whenever execution is over 3 sec
 	@GetMapping("/search/{searchTex}")
 	public Store search(@PathVariable String searchTex) {
-		// TODO get with search of a product on store
+		// TODO get with search of a specific store name
 		return null;
 	}
 
-	@GetMapping("/{cousineId}/stores")
-	public Store getStoresWithProducts(@PathVariable Long cousineId) {
+	@GetMapping("/{cousineId}/products")
+	public Store getStoreWithProducts(@PathVariable Long cousineId) {
 		return super.get(cousineId);
 	}
 

@@ -1,12 +1,9 @@
 package br.sp.fair.fredericoalves.skipthedishes.resources;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,41 +22,42 @@ import br.sp.fair.fredericoalves.skipthedishes.services.OrderService;
  */
 @RestController
 @RequestMapping("/api/v1/order")
-public class OrderItemController extends ControllerDefault<Order, OrderService> {
+public class OrderItemController extends ControllerDefault<OrderItem, OrderItemService> {
 
 	@Autowired
-	protected OrderService serviceBus;
+	protected OrderItemService serviceBus;
+
+	@Autowired
+	//@Qualifier("orderItemService")
+	protected OrderService serviceOrder;
 
 	public OrderItemController(Logger logger) {
 		super(logger);
 	}
 
-	@Autowired
-	@Qualifier("orderItemService")
-	protected OrderItemService serviceOrderItem;
-
 	@GetMapping("/list")
-	public Collection<Order> get() {
-		return super.get();
+	public Collection<OrderItem> get() {
+		Collection<OrderItem> orders = super.get();
+		return orders;
 	}
 
 	@GetMapping("/get/{id}")
-	public Order get(@PathVariable Long id) {
+	public OrderItem get(@PathVariable Long id) {
 		return super.get(id);
 	}
 
-	@GetMapping("/orders")
-	public List<OrderItem> getOrderItems(@PathVariable OrderItem item) {
-		return serviceOrderItem.findAll().stream().collect(Collectors.toList());
+	@GetMapping("/{orderItemId}/order")
+	public Order getOrderFromOrderItem(@PathVariable Long orderItemId) {
+		return serviceBus.findOne(orderItemId).getOrder();
 	}
 
 	@Override
-	protected OrderService getServiceBus() {
+	protected OrderItemService getServiceBus() {
 		return serviceBus;
 	}
 
-	protected OrderItemService getServiceItemOrder() {
-		return serviceOrderItem;
+	protected OrderService getServiceItemOrder() {
+		return serviceOrder;
 	}
 
 }

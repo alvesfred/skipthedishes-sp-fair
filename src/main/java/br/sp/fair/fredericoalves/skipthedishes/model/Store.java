@@ -1,6 +1,6 @@
 package br.sp.fair.fredericoalves.skipthedishes.model;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -53,12 +52,8 @@ public class Store implements LongModel {
 	private String address;
 
 	@JsonIgnore
-	@JsonSerialize(using = ProductIdSerializer.class)
+	//@JsonSerialize(using = ProductIdSerializer.class)
 	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Set<Product> items;
-	
-	//@JsonIgnore
-	//@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	//private Set<Order> order;
+	private List<Product> items;
 
 }

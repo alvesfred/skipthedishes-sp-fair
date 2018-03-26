@@ -13,6 +13,10 @@ public class OrderIdSerializer extends BaseLongPKSerializer<Order> {
 	 */
 	private static final long serialVersionUID = 2433581203589165904L;
 
+	public OrderIdSerializer() {
+		super(null);
+	}
+
 	public OrderIdSerializer(Class<Order> entity) {
 		super(entity);
 	}

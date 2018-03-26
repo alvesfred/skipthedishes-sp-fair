@@ -13,6 +13,10 @@ public class StoreIdSerializer extends BaseLongPKSerializer<Store> {
 	 */
 	private static final long serialVersionUID = -9185910279927943441L;
 
+	public StoreIdSerializer() {
+		super(null);
+	}
+
 	public StoreIdSerializer(Class<Store> entity) {
 		super(entity);
 	}

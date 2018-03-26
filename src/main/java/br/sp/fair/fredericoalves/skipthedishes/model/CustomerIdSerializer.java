@@ -13,6 +13,10 @@ public class CustomerIdSerializer extends BaseLongPKSerializer<Customer> {
 	 */
 	private static final long serialVersionUID = 113581203589165904L;
 
+	public CustomerIdSerializer() {
+		super(null);
+	}
+
 	public CustomerIdSerializer(Class<Customer> entity) {
 		super(entity);
 	}

@@ -41,14 +41,14 @@ public class OrderItem implements LongModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@JsonSerialize(using = OrderIdSerializer.class)
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JsonSerialize(using = OrderIdSerializer.class)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	private Order order;
 
-	@JsonSerialize(using = ProductIdSerializer.class)
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JsonSerialize(using = ProductIdSerializer.class)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	private Product product;
 
 	@NotNull

@@ -2,11 +2,12 @@ package br.sp.fair.fredericoalves.skipthedishes.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.AllArgsConstructor;
@@ -54,9 +56,11 @@ public class Order implements LongModel {
     private LocalDateTime creation;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	@Column(name = "lastUpdate")
 	private LocalDateTime lastUpdate;
 
 	@NotNull
+	@Column(name = "deliveryAddress")
     private String deliveryAddress;
 
 	@NotNull
@@ -70,19 +74,20 @@ public class Order implements LongModel {
 
 	@NotNull
 	@JsonSerialize(using = CustomerIdSerializer.class)
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	private Customer customer;
 
 	//@NotNull
 	@JsonSerialize(using = StoreIdSerializer.class)
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	private Store store; // Restaurant
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	private Store store;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<OrderItem> items;
+	private List<OrderItem> items;
 
 	public BigDecimal total() {
-		return Optional.ofNullable(items).orElse(new HashSet<>()).stream().map(OrderItem::total).reduce(
+		return Optional.ofNullable(items).orElse(new ArrayList<>()).stream().map(OrderItem::total).reduce(
 				BigDecimal.ZERO, BigDecimal::add);
 	}    
 

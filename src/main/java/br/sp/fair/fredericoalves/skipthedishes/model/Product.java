@@ -61,8 +61,9 @@ public class Product implements LongModel {
 	private BigDecimal price;
 
 	// storeId
+	//@JsonIgnore
 	@JsonSerialize(using = StoreIdSerializer.class)
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	private Store store;
 
 }
