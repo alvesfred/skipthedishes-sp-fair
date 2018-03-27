@@ -14,10 +14,6 @@ public class OrderServiceTest {
     @MockBean
     private OrderRepository orderRepository;
 
-    public OrderServiceTest() {
-    	super(LoggerFactory.getLogger(OrderServiceTest.class));
-    }
-
     @Test
     public void testListOrders() {
     	logger.info("Finding all orders...");

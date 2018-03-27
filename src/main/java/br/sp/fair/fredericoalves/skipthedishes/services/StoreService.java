@@ -37,4 +37,8 @@ public class StoreService extends BusinessServiceImpl<Store, HazelcastStoreServi
 	protected HazelcastStoreService getCacheService() {
 		return cacheService;
 	}
+
+	public Store search(String searchTex) {
+		return storeRepository.searchByNameSearch(searchTex);
+	}
 }

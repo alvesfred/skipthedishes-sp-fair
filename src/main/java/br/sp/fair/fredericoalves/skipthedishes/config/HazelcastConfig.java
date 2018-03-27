@@ -10,6 +10,7 @@ import com.hazelcast.config.EvictionPolicy;
 import com.hazelcast.config.InMemoryFormat;
 import com.hazelcast.config.JoinConfig;
 import com.hazelcast.config.MaxSizeConfig;
+import com.hazelcast.config.NetworkConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 
@@ -17,7 +18,7 @@ import com.hazelcast.core.HazelcastInstance;
  * Hazelcast Config
  *
  * @author Frederico Cerqueira Alves
- * @see fredericocerqueiraalves@gmail.com
+ * @see http://docs.hazelcast.org/docs/latest-development/manual/html/Understanding_Configuration/Configuring_Declaratively.html
  */
 @Configuration
 //@Import({LocalhostListConfig.class, LocalhostMapConfig.class})
@@ -40,6 +41,20 @@ public class HazelcastConfig {
         final Config config = new Config();
         config.setProperty("hazelcast.jmx", "true");
 
+        /**
+           <multicast enabled="true">
+		      <multicast-group>224.2.2.3</multicast-group>
+		      <multicast-port>54327</multicast-port>
+		   </multicast>
+		   <tcp-ip enabled="false">
+			  <interface>127.0.0.1</interface>
+			  <member-list>
+			  <member>127.0.0.1</member>
+			  </member-list>
+		   </tcp-ip>
+         */
+        //setNetworkProperties(config);
+
         config.addListConfig(getListConfig("customer"));
         config.addListConfig(getListConfig("store"));
         config.addListConfig(getListConfig("product"));
@@ -52,9 +67,7 @@ public class HazelcastConfig {
         config.addMapConfig(getMapConfig("order"));
         config.addMapConfig(getMapConfig("orderItem"));        
 
-        HazelcastInstance instance = Hazelcast.newHazelcastInstance(config);
-
-        return instance;
+         return Hazelcast.newHazelcastInstance(config);
     }
 
     private LocalhostListConfig getListConfig(final String name) {
@@ -78,5 +91,21 @@ public class HazelcastConfig {
 	    mapConfig.setMergePolicy("com.hazelcast.map.merge.PassThroughMergePolicy");
 
 	    return mapConfig;
+    }
+
+    static final int PORT = 5505;
+    void setNetworkProperties(Config config) {
+        NetworkConfig network = config.getNetworkConfig();
+        network.setPort(PORT);
+
+        JoinConfig join = network.getJoin();
+        join.getTcpIpConfig().setEnabled(false);
+        join.getAwsConfig().setEnabled(false);
+        join.getMulticastConfig().setEnabled(true);
+
+        //join.getMulticastConfig().setMulticastGroup(MULTICAST_ADDRESS);
+        //join.getMulticastConfig().setMulticastPort(MULTICAST_PORT);
+
+        join.getMulticastConfig().setMulticastTimeoutSeconds(500);
     }
 }

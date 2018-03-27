@@ -1,5 +1,9 @@
 package br.sp.fair.fredericoalves.skipthedishes.resources;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.sp.fair.fredericoalves.skipthedishes.model.Product;
 import br.sp.fair.fredericoalves.skipthedishes.model.Store;
 import br.sp.fair.fredericoalves.skipthedishes.services.StoreService;
 
@@ -34,16 +39,20 @@ public class CousineController extends ControllerDefault<Store, StoreService> {
 		return ResponseEntity.ok().build();
 	}
 
-	// Warning whenever execution is over 3 sec
 	@GetMapping("/search/{searchTex}")
 	public Store search(@PathVariable String searchTex) {
-		// TODO get with search of a specific store name
-		return null;
+		// looking for stores that have the same name pattern on searching
+		return serviceBus.search(searchTex);
 	}
 
 	@GetMapping("/{cousineId}/products")
-	public Store getStoreWithProducts(@PathVariable Long cousineId) {
-		return super.get(cousineId);
+	public List<Product> getStoreWithProducts(@PathVariable Long cousineId) {
+		Store store = super.get(cousineId);
+
+		if (!Objects.isNull(store))
+			return store.getItems();
+
+		return new ArrayList<>();
 	}
 
 	@Override

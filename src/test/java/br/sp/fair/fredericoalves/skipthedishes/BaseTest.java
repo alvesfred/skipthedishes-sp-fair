@@ -7,11 +7,17 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestTemplate;
 
 import br.sp.fair.fredericoalves.skipthedishes.model.LongModel;
 import br.sp.fair.fredericoalves.skipthedishes.repository.BaseIdLongRepository;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Base Test
@@ -20,36 +26,50 @@ import br.sp.fair.fredericoalves.skipthedishes.repository.BaseIdLongRepository;
  *
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public abstract class BaseTest<M extends LongModel, T extends BaseIdLongRepository<M>> {
+
 	/**
 	 * Logger
 	 */
+	@Getter
+	@Setter
 	protected Logger logger;
 
-	public BaseTest(Logger logger) {
-		this.logger = logger;
+	/**
+	 * Rest template client to test webservices access
+	 */
+	@Getter
+	@Autowired
+	protected RestTemplate restTemplate;
+
+	public BaseTest() {
+		this(LoggerFactory.getLogger(BaseTest.class));
+	}
+
+	private BaseTest(final Logger logger) {
+		setLogger(logger);
 	}
 
     @Test
     public void testFindAll() {
-    	logger.info("Testing findAll...");
+    	getLogger().info("Testing findAll...");
 
     	Iterable<M> list = findAll();
     	assertNotNull(list);
 
-        logger.info("FindAll results: " + list);
+    	getLogger().info("FindAll results: " + list);
     }
 
     @Test
     public void testFindById1L() {
-    	logger.info("Testing findById...");
+    	getLogger().info("Testing findById...");
     	M value = findById(1L);
 
     	assertNotNull(value);
     	assertThat(value.getId(), equalTo(1L));
 
-        logger.info("FindById1L result: " + value);
+    	getLogger().info("FindById1L result: " + value);
     }
 
     /**

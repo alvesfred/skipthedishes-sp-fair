@@ -1,5 +1,5 @@
-server:
-  port: 7070
+#server:
+#  port: 7070
   
 spring:
   application:

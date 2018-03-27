@@ -2,11 +2,9 @@
 
 Author: Frederico Cerqueira Alves
 
-SkipTheDishes - Java Developer
+SkipTheDishes SP Fair - Senior Java Developer
 
 # Spring Boot Project:
-
-https://github.com/alvesfred/skipthedishes-sp-fair
 
 - Responsible for controlling orders, customers and products from a specific store
 
@@ -15,16 +13,19 @@ https://github.com/alvesfred/skipthedishes-sp-fair
 Repository, 
 Service, 
 Resource (Rest WebServices), 
-In memory cache (Hazelcast)
+In memory cache (Hazelcast),
+Invertion of Control
 
 # Frameworks/APIs
 
-Hazelcast api, 
 Spring Boot, 
 Spring Rest, 
 Spring Test, 
-Spring Scheduler, 
-Lombok, 
+Spring Scheduler,
+Swagger,
+Hazelcast, 
+Hibernate,
+Lombok,
 JUnit
 
 # MySQL version 5.5
@@ -39,8 +40,10 @@ $ sudo docker run -it --link skipthedishes-sp-fair:mysql --rm mysql sh -c 'exec 
 
 NOTE: see the application.yml for additional configuration
 
-# TODO LIST...
+# Tests
 
-- Token Authentication from Resource calls
-- Tests
+mvn clean install
 
+# Documentation
+
+http://<host>:8080/swagger-ui.htm

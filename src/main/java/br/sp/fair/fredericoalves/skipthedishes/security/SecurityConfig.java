@@ -42,6 +42,12 @@ import lombok.Data;
 import lombok.experimental.Value;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Security HTTP/Servlet control
+ *
+ * @author frederico.alves
+ *
+ */
 @SuppressWarnings("deprecation")
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
