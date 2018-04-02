@@ -2,9 +2,6 @@ package br.sp.fair.fredericoalves.skipthedishes.security;
 
 import java.io.Serializable;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * Token
  *
@@ -18,7 +15,15 @@ public class Token implements Serializable {
 	 */
 	private static final long serialVersionUID = 176195457510721692L;
 
-	@Getter
-	@Setter
-	private String token;
+	private String userHeader;
+	private String pwdHeader;
+
+	public Token(String userHeader, String pwdHeader) {
+		this.userHeader = userHeader;
+		this.pwdHeader  = pwdHeader;
+	}
+
+	public String getHeaderToken() {
+		return this.userHeader + ":" + this.pwdHeader;
+	}
 }

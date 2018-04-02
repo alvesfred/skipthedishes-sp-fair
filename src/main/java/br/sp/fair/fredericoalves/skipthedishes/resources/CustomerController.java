@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.sp.fair.fredericoalves.skipthedishes.model.Customer;
-import br.sp.fair.fredericoalves.skipthedishes.security.Token;
 import br.sp.fair.fredericoalves.skipthedishes.services.CustomerService;
 
 /**
@@ -33,12 +32,6 @@ public class CustomerController extends ControllerDefault<Customer, CustomerServ
 	public CustomerController(Logger logger) {
 		super(logger);
 	}
-
-    @PostMapping(path = "/auth", produces = "application/json;charset=UTF-8")
-	public Token auth() throws Exception {
-    	// FIXME
-		return new Token(); // TODO Auth Service Listener
-	}	
 
     @PostMapping(path = "/save", produces = "application/json;charset=UTF-8")
 	public Customer save(@RequestBody @Valid Customer entity) {

@@ -1,17 +1,23 @@
 package br.sp.fair.fredericoalves.skipthedishes;
 
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import br.sp.fair.fredericoalves.skipthedishes.model.OrderItem;
+import br.sp.fair.fredericoalves.skipthedishes.repository.OrderItemRepository;
+import br.sp.fair.fredericoalves.skipthedishes.repository.OrderRepository;
+
 /**
  * Order Service Test
  */
-// FIXME
-public class OrderServiceTest {
-//public class OrderServiceTest extends BaseTest<OrderItem, OrderItemRepository> {
-/*
-    //@MockBean
+public class OrderServiceTest extends BaseTest<OrderItem, OrderItemRepository> {
+
 	@Autowired
     private OrderItemRepository orderItemRepository;
 
-    @MockBean
+    @Autowired
     private OrderRepository orderRepository;
 
     @Test
@@ -24,5 +30,4 @@ public class OrderServiceTest {
 	protected OrderItemRepository getRepository() {
 		return orderItemRepository;
 	}
-*/
 }

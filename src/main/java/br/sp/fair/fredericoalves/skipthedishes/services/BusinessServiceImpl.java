@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import br.sp.fair.fredericoalves.skipthedishes.model.LongModel;
@@ -23,6 +24,10 @@ public abstract class BusinessServiceImpl<T extends LongModel, H extends Hazelca
 		implements BusinessService<T> {
 
 	private Logger logger;
+
+	protected BusinessServiceImpl() {
+		this.logger = LoggerFactory.getLogger(getClass().getName());
+	}
 
 	protected BusinessServiceImpl(Logger logger) {
 		this.logger = logger;

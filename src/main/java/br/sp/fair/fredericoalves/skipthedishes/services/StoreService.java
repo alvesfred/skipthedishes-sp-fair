@@ -2,7 +2,6 @@ package br.sp.fair.fredericoalves.skipthedishes.services;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import br.sp.fair.fredericoalves.skipthedishes.model.Store;
@@ -17,12 +16,15 @@ import br.sp.fair.fredericoalves.skipthedishes.repository.StoreRepository;
 @Service
 public class StoreService extends BusinessServiceImpl<Store, HazelcastStoreService, StoreRepository> {
 
-	@Autowired
-	@Qualifier("storeRepository")
+	@Autowired()
 	private StoreRepository storeRepository;
 
 	@Autowired
 	private HazelcastStoreService cacheService;
+
+	public StoreService() {
+		super();
+	}
 
 	public StoreService(Logger logger) {
 		super(logger);
