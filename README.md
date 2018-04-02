@@ -46,4 +46,4 @@ mvn clean install
 
 # Documentation
 
-http://<host>:8080/swagger-ui.htm
+http://${HOST}:8080/swagger-ui.htm
