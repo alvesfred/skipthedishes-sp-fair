@@ -10,7 +10,7 @@ https://github.com/alvesfred/skipthedishes-sp-fair
 
 # Code
 
-See DEVELOPER branch to access HOT deployment code!
+## See DEVELOPER branch to access HOT deployment code
 
 - Responsible for controlling orders, customers and products from a specific store
 
