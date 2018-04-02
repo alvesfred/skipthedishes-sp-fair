@@ -28,6 +28,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Order Entity Model
@@ -38,6 +39,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "orders")
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -55,12 +57,12 @@ public class Order implements LongModel {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime creation;
 
+	@Column(name = "changed")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-	@Column(name = "lastUpdate")
 	private LocalDateTime lastUpdate;
 
+	@Column(name = "delivery")
 	@NotNull
-	@Column(name = "deliveryAddress")
     private String deliveryAddress;
 
 	@NotNull
@@ -85,6 +87,10 @@ public class Order implements LongModel {
 	@JsonIgnore
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<OrderItem> items;
+
+	public Order(Long id) {
+		setId(id);
+	}
 
 	public BigDecimal total() {
 		return Optional.ofNullable(items).orElse(new ArrayList<>()).stream().map(OrderItem::total).reduce(

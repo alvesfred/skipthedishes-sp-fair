@@ -1,6 +1,7 @@
 package br.sp.fair.fredericoalves.skipthedishes.resources;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import br.sp.fair.fredericoalves.skipthedishes.model.Order;
 import br.sp.fair.fredericoalves.skipthedishes.model.OrderItem;
 import br.sp.fair.fredericoalves.skipthedishes.services.OrderItemService;
 import br.sp.fair.fredericoalves.skipthedishes.services.OrderService;
+import br.sp.fair.fredericoalves.skipthedishes.util.StreamMapOptionalUtil;
 
 /**
  * Order Items Controller
@@ -22,42 +24,50 @@ import br.sp.fair.fredericoalves.skipthedishes.services.OrderService;
  */
 @RestController
 @RequestMapping("/api/v1/order")
-public class OrderItemController extends ControllerDefault<OrderItem, OrderItemService> {
+public class OrderItemController extends ControllerDefault<Order, OrderService> {
 
 	@Autowired
-	protected OrderItemService serviceBus;
+	protected OrderService serviceBus;
 
 	@Autowired
-	//@Qualifier("orderItemService")
-	protected OrderService serviceOrder;
+	protected OrderItemService serviceOrderItems;
 
 	public OrderItemController(Logger logger) {
 		super(logger);
 	}
 
 	@GetMapping("/list")
-	public Collection<OrderItem> get() {
-		Collection<OrderItem> orders = super.get();
-		return orders;
+	public Collection<Order> get() {
+		return super.get();
+	}
+
+	@GetMapping("/listOrderItems")
+	public Collection<OrderItem> listOrderItems() {
+		return serviceOrderItems.findAll();
 	}
 
 	@GetMapping("/get/{id}")
-	public OrderItem get(@PathVariable Long id) {
+	public Order get(@PathVariable Long id) {
 		return super.get(id);
 	}
 
-	@GetMapping("/{orderItemId}/order")
+	@GetMapping("/getOrderFromItem/{orderItemId}/")
 	public Order getOrderFromOrderItem(@PathVariable Long orderItemId) {
-		return serviceBus.findOne(orderItemId).getOrder();
+		return StreamMapOptionalUtil.resolve(id -> getServiceItemOrder().findOne(id), orderItemId).get().getOrder();
+	}
+
+	@GetMapping("/getOrderItems/{idOrder}")
+	public List<OrderItem> getOrderItemsFromOrder(@PathVariable Long idOrder) {
+		return StreamMapOptionalUtil.resolve(id -> getServiceItemOrder().getOrderItemsFromOrder(idOrder), idOrder).get();
 	}
 
 	@Override
-	protected OrderItemService getServiceBus() {
+	protected OrderService getServiceBus() {
 		return serviceBus;
 	}
 
-	protected OrderService getServiceItemOrder() {
-		return serviceOrder;
+	protected OrderItemService getServiceItemOrder() {
+		return serviceOrderItems;
 	}
 
 }

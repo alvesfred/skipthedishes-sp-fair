@@ -63,9 +63,9 @@ DROP TABLE IF EXISTS `orders`;
 
 create table orders (
      `id` int(64) NOT NULL AUTO_INCREMENT,
-    `lastUpdate` datetime,
+    `changed` datetime,
     `creation` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `deliveryAddress` varchar(200) not null,
+    `delivery` varchar(200) not null,
     `contact` varchar(100) not null,
     `status` varchar(100)  not null,
     `customer_id` int(64)  not null,

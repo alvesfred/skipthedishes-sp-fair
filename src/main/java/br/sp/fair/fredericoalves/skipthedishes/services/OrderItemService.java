@@ -1,5 +1,7 @@
 package br.sp.fair.fredericoalves.skipthedishes.services;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,10 @@ public class OrderItemService extends BusinessServiceImpl<OrderItem, HazelcastOr
 
 	public OrderItemService(Logger logger) {
 		super(logger);
+	}
+
+	public List<OrderItem> getOrderItemsFromOrder(Long idOrder) {
+		return getRepository().findOrderItemsFromOrder(idOrder);
 	}
 
 	@Override
